@@ -1,0 +1,6 @@
+#!/bin/sh
+cd ../
+GIT_DIR=./.git
+git reset --hard HEAD
+
+make deploy
