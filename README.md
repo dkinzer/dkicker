@@ -1,5 +1,8 @@
 Drupal Kicker
 =============
+
+![The Gods invoke Devi][gods]
+
 Drupal Kicker is useful for setting up  Drupal projects that deploy simply by
 executing  `git push` from a development repository to a production repository.
 
@@ -47,3 +50,4 @@ project/build/sites/
 ```
 
 [1]:http://drupaldelphia.com/program/schedule/sessions/using-git-manage-deployments-updates
+[gods]:./git-push.jpg
