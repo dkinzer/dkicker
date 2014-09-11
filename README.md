@@ -40,6 +40,9 @@ project/build/live -> project/build/live -> ./drupal-[VERSIOIN]
 projec/build/drupal-[VERSION]/
 |-- ...
 |-- sites -> ../sites/5a4c5c2f26e1d79acbc723f001924d8b64a70fc1
+    .
+    |-- all/default/settings.php -> ../../../settings.php
+
 
 project/build/sites/
 |-- 005099a7d67c74acc93ad03cb7a47eafdc85622e
@@ -47,7 +50,11 @@ project/build/sites/
 |-- 19d904f876f891f2db6769858da8c956cb2f1942
 |-- 3adeaccb04af988b9e69b1c38ebb763da20227a1
 |-- ...
+
 ```
+And, the process completes with a call to
+
+`drush updb` and `druch cc all`
 
 [1]:http://drupaldelphia.com/program/schedule/sessions/using-git-manage-deployments-updates
 [gods]:./git-push.jpg
