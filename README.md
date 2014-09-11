@@ -54,7 +54,7 @@ project/build/sites/
 ```
 And, the process completes with a call to
 
-`drush updb` and `druch cc all`
+`drush updb` and `drush cc all`
 
 [1]:http://drupaldelphia.com/program/schedule/sessions/using-git-manage-deployments-updates
 [gods]:./git-push.jpg
