@@ -82,6 +82,18 @@ else
   ln -s -f $PROJECT_DRUPAL_DIR $WEBSITE_DIR
 fi
 
+echo Drush specifics..
+pushd $WEBSITE_DIR
+if [ $(which drush 2>1) ];
+then
+  if [ "Successful" = "$(drush --pipe status bootstrap)" ];
+  then
+    drush updb --yes
+    drush cc all --yes
+  fi
+fi
+popd
+
 echo '****************************'
 echo '*  SUCCESS: Site Deployed  *'
 echo '****************************'
