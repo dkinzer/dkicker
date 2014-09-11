@@ -35,7 +35,7 @@ Currently a push to production results in the following project directory struct
 ```
 website -> project/build/live
 
-project/build/live -> project/build/live -> ./drupal-[VERSIOIN]
+project/build/live -> project/build/live -> ./drupal-[VERSION]
 
 projec/build/drupal-[VERSION]/
 |-- ...
