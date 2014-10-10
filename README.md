@@ -56,5 +56,5 @@ And, the process completes with a call to
 
 `drush updb` and `drush cc all`
 
-[1]:http://drupaldelphia.com/program/schedule/sessions/using-git-manage-deployments-updates
+[1]:https://speakerdeck.com/dkinzer/using-git-to-manage-deployments
 [gods]:./git-push.jpg
