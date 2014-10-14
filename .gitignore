@@ -12,8 +12,8 @@ config/env/local
 */private/
 
 # Ignore archives
-*tar
-*tar.gz
+*.tar
+*.tar.gz
 
 # Ignore sql dumps
 *sql
