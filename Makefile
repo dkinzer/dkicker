@@ -8,6 +8,9 @@ test:
 prepare:
 	bash bin/prepare.sh
 
+prepare-local:
+	bash bin/prepare-local.sh
+
 local: export ENV := local
 local: clean
 	source config/env/$$ENV; \
