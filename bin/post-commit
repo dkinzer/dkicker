@@ -1,0 +1,4 @@
+#!/bin/sh
+GIT_DIR=./.git
+
+make local
