@@ -1,5 +1,5 @@
 .PHONY: default test local deploy clean reset prepare prepare-local
-$SHELL := /bin/bash
+SHELL := /bin/bash
 
 default: test
 
