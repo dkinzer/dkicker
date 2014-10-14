@@ -26,6 +26,16 @@ make prepare
 ```
 
 ###Step 2:###
+The deploy script can be used to deploy to you local web server.
+Copy config/env/local.example to config/env/local and edit for your environment.
+
+```shell
+make prepare-local
+make local
+```
+
+After running `make prepare-local`, any commit you make will also call `make local`
+
 On your development server work as usual then push to production.
 
 
