@@ -50,6 +50,9 @@ if [ ! -d "./build/sites/$COMMIT" ]; then
   rm -r ./build/sites/$COMMIT/bin
   rm -r ./build/sites/$COMMIT/config
   rm ./build/sites/$COMMIT/Makefile
+  rm ./build/sites/$COMMIT/git-push.jpg
+  rm ./build/sites/$COMMIT/README.md
+  rm ./build/sites/$COMMIT/LICENSE
 else
   echo website already at specified version: $COMMIT
 fi
