@@ -31,7 +31,7 @@ else
 fi
 
 DRUPAL_DIR=./build/$DRUPAL_CORE
-PROJECT_DRUPAL_DIR=$PROJECT_NAME/build/live
+PROJECT_DRUPAL_DIR=$(pwd)/build/live
 
 if [ ! -d "$DRUPAL_DIR" ]; then
   echo Build Drupal Core Version "$DRUPAL_CORE"...
@@ -47,8 +47,16 @@ if [ ! -d "./build/sites/$COMMIT" ]; then
   git archive --format=tgz $COMMIT > website-$COMMIT.tgz
   tar xvf website-$COMMIT.tgz -C ./build/sites/$COMMIT
   rm website-$COMMIT.tgz
+  rm -r ./build/sites/$COMMIT/bin
+  rm -r ./build/sites/$COMMIT/config
+  rm ./build/sites/$COMMIT/Makefile
 else
   echo website already at specified version: $COMMIT
+fi
+
+if [ -d "./build/sites/$COMMIT" ]; then
+  echo "Clean up old builds  (Keeping last 5 commits)"
+  (ls -d -1 -t ./build/sites/*|head -n 5;ls -d -1 -t ./build/sites/*)|sort|uniq -u|xargs rm -rf
 fi
 
 if [[ -d "$DRUPAL_DIR/sites" && ! -L "$DRUPAL_DIR/sites" ]]; then
@@ -66,7 +74,7 @@ if [ "$CURRENT_WEBSITE" != "../sites/$COMMIT" ]; then
 fi
 
 echo Add symbolic link to settings.php:
-ln -s -f ../../../settings.php $DRUPAL_DIR/sites/default/settings.php
+ln -s -f $(pwd)/default/settings.php $DRUPAL_DIR/sites/default/settings.php
 
 rm -f ./build/live
 ln -s -f ./$DRUPAL_CORE ./build/live
