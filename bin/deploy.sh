@@ -79,6 +79,9 @@ fi
 echo Add symbolic link to settings.php:
 ln -s -f $(pwd)/default/settings.php $DRUPAL_DIR/sites/default/settings.php
 
+echo Add symbolic link to files:
+ln -s -f $(pwd)/default/files $DRUPAL_DIR/sites/default/files
+
 rm -f ./build/live
 ln -s -f ./$DRUPAL_CORE ./build/live
 
