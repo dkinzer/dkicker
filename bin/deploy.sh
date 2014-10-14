@@ -17,11 +17,11 @@ if [ ! "$PROJECT_NAME" ]; then
 fi
 
 if [ ! "$WEBSITE_DIR" ]; then
-  WEBSITE_DIR='./../website'
+  WEBSITE_DIR='./../public_html'
 fi
 
-if [ ! "$DRUPAL_VERSION" ]; then
-  DRUPAL_VERSION='7.28'
+if [ ! "$DRUPAL_CORE" ]; then
+  DRUPAL_CORE='drupal-7.31'
 fi
 
 if [ ! "$COMMIT" ]; then
@@ -30,15 +30,15 @@ else
   COMMIT=$(git rev-parse --verify $COMMIT)
 fi
 
-DRUPAL_DIR=./build/drupal-$DRUPAL_VERSION
+DRUPAL_DIR=./build/$DRUPAL_CORE
 PROJECT_DRUPAL_DIR=$PROJECT_NAME/build/live
 
 if [ ! -d "$DRUPAL_DIR" ]; then
-  echo Build Drupal Core Version "$DRUPAL_VERSION"...
+  echo Build Drupal Core Version "$DRUPAL_CORE"...
   mkdir -p ./build
-  drush dl --verbose --yes drupal-$DRUPAL_VERSION --destination=./build
+  drush dl --verbose --yes $DRUPAL_CORE --destination=./build
 else
-  echo Drupal Core already set to default: "$DRUPAL_VERSION"
+  echo Drupal Core already set to default: "$DRUPAL_CORE"
 fi
 
 if [ ! -d "./build/sites/$COMMIT" ]; then
@@ -69,7 +69,7 @@ echo Add symbolic link to settings.php:
 ln -s -f ../../../settings.php $DRUPAL_DIR/sites/default/settings.php
 
 rm -f ./build/live
-ln -s -f ./drupal-$DRUPAL_VERSION ./build/live
+ln -s -f ./$DRUPAL_CORE ./build/live
 
 echo Link  website build...
 if [[ -d "$WEBSITE_DIR" && ! -L "$WEBSITE_DIR" ]]; then
