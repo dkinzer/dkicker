@@ -1,0 +1,3 @@
+export PROJECT_NAME=kicker
+export WEBSITE_DIR=$HOME/Sites/$PROJECT_NAME
+export DRUPAL_CORE=drupal-7.31
