@@ -41,12 +41,15 @@ else
   echo Drupal Core already set to default: "$DRUPAL_CORE"
 fi
 
-if [ ! -d "./build/sites/$COMMIT" ]; then
+if [[ ! -d "./build/sites/$COMMIT" && $ENV == 'production' ]]; then
   echo Build website version: $COMMIT ...
   mkdir -p ./build/sites/$COMMIT
   git archive --format=tgz $COMMIT > website-$COMMIT.tgz
   tar xvf website-$COMMIT.tgz -C ./build/sites/$COMMIT
   rm website-$COMMIT.tgz
+else if [[ ! -d './build/sites/$COMMIT" && $ENV == 'local' ]]; then
+  echo Link website to local repository
+  ln -f -s $(pwd) .build/sites/$COMMIT
 else
   echo website already at specified version: $COMMIT
 fi
