@@ -47,7 +47,7 @@ if [[ ! -d "./build/sites/$COMMIT" && $ENV == 'production' ]]; then
   git archive --format=tgz $COMMIT > website-$COMMIT.tgz
   tar xvf website-$COMMIT.tgz -C ./build/sites/$COMMIT
   rm website-$COMMIT.tgz
-else if [[ ! -d './build/sites/$COMMIT" && $ENV == 'local' ]]; then
+elif [[ ! -d './build/sites/$COMMIT" && $ENV == 'local' ]]; then
   echo Link website to local repository
   ln -f -s $(pwd) .build/sites/$COMMIT
 else
