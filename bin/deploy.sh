@@ -53,7 +53,7 @@ if [[ ! -d "./build/sites/$COMMIT" && $ENV == 'production' ]]; then
   rm ./build/sites/$COMMIT/git-push.jpg
   rm ./build/sites/$COMMIT/README.md
   rm ./build/sites/$COMMIT/LICENSE
-else if [[ ! -d './build/sites/$COMMIT" && $ENV == 'local' ]]; then
+elif [[ ! -d './build/sites/$COMMIT" && $ENV == 'local' ]]; then
   echo Link website to local repository
   ln -f -s $(pwd) .build/sites/$COMMIT
 else
