@@ -47,9 +47,9 @@ if [[ ! -d "./build/sites/$COMMIT" && $ENV == 'production' ]]; then
   git archive --format=tgz $COMMIT > website-$COMMIT.tgz
   tar xvf website-$COMMIT.tgz -C ./build/sites/$COMMIT
   rm website-$COMMIT.tgz
-elif [[ ! -d './build/sites/$COMMIT" && $ENV == 'local' ]]; then
+elif [[ ! -d "./build/sites/$COMMIT" && $ENV == 'local' ]]; then
   echo Link website to local repository
-  ln -f -s $(pwd) .build/sites/$COMMIT
+  ln -f -s $(pwd) ./build/sites/$COMMIT
 else
   echo website already at specified version: $COMMIT
 fi
@@ -68,11 +68,13 @@ if [ "$CURRENT_WEBSITE" != "../sites/$COMMIT" ]; then
   ln -s -f ../sites/$COMMIT $DRUPAL_DIR/sites
 fi
 
-echo Add symbolic link to settings.php:
-ln -s -f ../../../settings.php $DRUPAL_DIR/sites/default/settings.php
+if [ $ENV != "local" ]; then
+  echo Add symbolic link to settings.php:
+  ln -s -f $(pwd)/default/settings.php $DRUPAL_DIR/sites/default/settings.php
 
-rm -f ./build/live
-ln -s -f ./$DRUPAL_CORE ./build/live
+  echo Add symbolic link to files:
+  ln -s -f $(pwd)/default/files $DRUPAL_DIR/sites/default/files
+fi
 
 echo Link  website build...
 if [[ -d "$WEBSITE_DIR" && ! -L "$WEBSITE_DIR" ]]; then
