@@ -90,8 +90,8 @@ else
   ln -s -f $PROJECT_DRUPAL_DIR $WEBSITE_DIR
 fi
 
-echo "Clearing "
 if [ $ENV == production ] && [ -f ./default/opcache_reset.php ]; then
+  echo "Clearing cache"
   wget  --bind-address 127.0.0.1 -O /dev/null $CACHE_CLEAR
 fi
 
