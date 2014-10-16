@@ -1,4 +1,5 @@
 # Ignore local builds
+build/*/sites
 build/sites
 build/live
 
