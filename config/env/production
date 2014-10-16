@@ -1,3 +1,4 @@
 export PROJECT_NAME=dicker.git
 export WEBSITE_DIR=./../public_html
 export DRUPAL_CORE=drupal-7.31
+export RETAIN_BUILDS=2

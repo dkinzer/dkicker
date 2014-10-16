@@ -24,6 +24,10 @@ if [ ! "$DRUPAL_CORE" ]; then
   DRUPAL_CORE='drupal-7.31'
 fi
 
+if [ ! "$RETAIN_BUILDS" ]; then
+  RETAIN_BUILDS='2'
+fi
+
 if [ ! "$COMMIT" ]; then
   COMMIT=$(git rev-parse HEAD)
 else
@@ -58,8 +62,8 @@ else
 fi
 
 if [ -d "./build/sites/$COMMIT" ]; then
-  echo "Clean up old builds  (Keeping last 5 commits)"
-  (ls -d -1 -t ./build/sites/*|head -n 5;ls -d -1 -t ./build/sites/*)|sort|uniq -u|xargs rm -rf
+  echo "Clean up old builds  (Keeping last $RETAIN_BUILDS commits)"
+  (ls -d -1 -t ./build/sites/*|head -n $RETAIN_BUILDS;ls -d -1 -t ./build/sites/*)|sort|uniq -u|xargs rm -rf
 fi
 
 if [[ -d "$DRUPAL_DIR/sites" && ! -L "$DRUPAL_DIR/sites" ]]; then
