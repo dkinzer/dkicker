@@ -21,7 +21,7 @@ if [ ! "$WEBSITE_DIR" ]; then
 fi
 
 if [ ! "$DRUPAL_CORE" ]; then
-  DRUPAL_CORE='drupal-7.31'
+  DRUPAL_CORE='drupal-7.32'
 fi
 
 if [ ! "$COMMIT" ]; then
@@ -31,7 +31,7 @@ else
 fi
 
 DRUPAL_DIR=./build/$DRUPAL_CORE
-PROJECT_DRUPAL_DIR=$PROJECT_NAME/build/live
+PROJECT_DRUPAL_DIR=$(pwd)/build/live
 
 if [ ! -d "$DRUPAL_DIR" ]; then
   echo Build Drupal Core Version "$DRUPAL_CORE"...
@@ -41,15 +41,20 @@ else
   echo Drupal Core already set to default: "$DRUPAL_CORE"
 fi
 
-if [[ ! -d "./build/sites/$COMMIT" && $ENV == 'production' ]]; then
+if [ ! -d "./build/sites/$COMMIT" ]; then
   echo Build website version: $COMMIT ...
   mkdir -p ./build/sites/$COMMIT
   git archive --format=tgz $COMMIT > website-$COMMIT.tgz
   tar xvf website-$COMMIT.tgz -C ./build/sites/$COMMIT
   rm website-$COMMIT.tgz
-elif [[ ! -d "./build/sites/$COMMIT" && $ENV == 'local' ]]; then
-  echo Link website to local repository
-  ln -f -s $(pwd) ./build/sites/$COMMIT
+  rm -r ./build/sites/$COMMIT/bin
+  rm -r ./build/sites/$COMMIT/config
+  rm -r ./build/sites/$COMMIT/build
+  rm -r ./build/sites/$COMMIT/patches
+  rm ./build/sites/$COMMIT/Makefile
+  rm ./build/sites/$COMMIT/git-push.jpg
+  rm ./build/sites/$COMMIT/README.md
+  rm ./build/sites/$COMMIT/LICENSE
 else
   echo website already at specified version: $COMMIT
 fi
@@ -68,22 +73,17 @@ if [ "$CURRENT_WEBSITE" != "../sites/$COMMIT" ]; then
   ln -s -f ../sites/$COMMIT $DRUPAL_DIR/sites
 fi
 
-if [ $ENV != "local" ]; then
-  echo Add symbolic link to settings.php:
-  ln -s -f $(pwd)/default/settings.php $DRUPAL_DIR/sites/default/settings.php
+echo Add symbolic link to settings.php:
+ln -s -f $(pwd)/default/settings.php $DRUPAL_DIR/sites/default/settings.php
 
-  echo Add symbolic link to files:
-  ln -s -f $(pwd)/default/files $DRUPAL_DIR/sites/default/files
-fi
+echo Add symbolic link to files:
+ln -s -f $(pwd)/default/files $DRUPAL_DIR/sites/default/files
 
 echo Link  website build...
 if [[ -d "$WEBSITE_DIR" && ! -L "$WEBSITE_DIR" ]]; then
   mv -f $WEBSITE_DIR ${WEBSITE_DIR}~
   ln -s -f $PROJECT_DRUPAL_DIR $WEBSITE_DIR
 else
-  if [[ -L "$WEBSITE_DIR" ]]; then
-    rm $WEBSITE_DIR
-  fi
   ln -s -f $PROJECT_DRUPAL_DIR $WEBSITE_DIR
 fi
 
