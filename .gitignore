@@ -1,5 +1,6 @@
 # Ignore local builds
-build/*
+build/sites
+build/live
 
 # Ignore local environment config
 config/env/local
