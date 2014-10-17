@@ -49,7 +49,9 @@ if [ ! -d "./build/sites/$COMMIT" ]; then
   rm website-$COMMIT.tgz
   rm -r ./build/sites/$COMMIT/bin
   rm -r ./build/sites/$COMMIT/config
-  rm -r ./build/sites/$COMMIT/build
+  if [ -d "./build/sites/$COMMIT/build" ]; then
+    rm -r ./build/sites/$COMMIT/build
+  fi
   rm -r ./build/sites/$COMMIT/patches
   rm ./build/sites/$COMMIT/Makefile
   rm ./build/sites/$COMMIT/git-push.jpg
@@ -79,11 +81,19 @@ ln -s -f $(pwd)/default/settings.php $DRUPAL_DIR/sites/default/settings.php
 echo Add symbolic link to files:
 ln -s -f $(pwd)/default/files $DRUPAL_DIR/sites/default/files
 
+if [ -L "./build/live" ]; then
+  rm ./build/live
+fi
+ln -s -f ./$DRUPAL_CORE ./build/live
+
 echo Link  website build...
 if [[ -d "$WEBSITE_DIR" && ! -L "$WEBSITE_DIR" ]]; then
   mv -f $WEBSITE_DIR ${WEBSITE_DIR}~
   ln -s -f $PROJECT_DRUPAL_DIR $WEBSITE_DIR
 else
+ if [ -L "$WEBSITE_DIR" ]; then
+    rm $WEBSITE_DIR
+  fi
   ln -s -f $PROJECT_DRUPAL_DIR $WEBSITE_DIR
 fi
 
