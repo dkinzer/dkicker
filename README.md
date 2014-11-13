@@ -26,7 +26,7 @@ make prepare
 ```
 
 ###Step 2:###
-The deploy script can be used to deploy to you local web server.
+The deploy script can be used to deploy to your local web server.
 Copy config/env/local.example to config/env/local and edit for your environment.
 
 ```shell
